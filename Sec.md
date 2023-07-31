@@ -84,5 +84,8 @@ sudo apt install nikto -y
     select * from user where name='tom' OR 1=1;  = eveyrthing
     stacking statements, chain statements togetyher with ;
 
+    To find the version
+        Audi' UNION SELECT @@version,database(); #
+
 ## Nesting Statements
     # ignore the rest or -- tells to ignore stuff, comment out some of the sql error
