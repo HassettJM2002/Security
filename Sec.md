@@ -57,4 +57,32 @@ sudo apt install nikto -y
         : echo "ssh-rsa 'key' student@lin-ops" > /var/www/.ssh/authorized_keys
 
 ## Day 3 - Web Explotation  Part 2 - SQL Injection 
-###
+### MySql
+    Unsanitized vs Sanitized Fields
+        Unsanitized test, enter '
+            will return info, no errors or jeneric error
+        Santized: items are removed, escaped into single string
+
+    Server-Side Query Processing
+        Before Input
+            name='$name'...
+            nmae='JohnDoe'
+
+### Injecting Statemnet
+    User Enters TOM' OR 1='1 in the name and pass fields
+    Truth Statemnet: tom 'OR 1=' 1
+
+    Back End
+        name='tom' OR 1='1' AND PASS='tom' OR 1='1'
+
+##
+    mysql
+    use session;
+    select * from user;
+    select id from user where name='admin';  = 0
+    select id from user where name='tom';  = none
+    select * from user where name='tom' OR 1=1;  = eveyrthing
+    stacking statements, chain statements togetyher with ;
+
+## Nesting Statements
+    # ignore the rest or -- tells to ignore stuff, comment out some of the sql error
