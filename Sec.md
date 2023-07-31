@@ -55,3 +55,6 @@ sudo apt install nikto -y
         : ls -la /var/www -> see if .ssh file is created
         : mksir /var/www/.ssh
         : echo "ssh-rsa 'key' student@lin-ops" > /var/www/.ssh/authorized_keys
+
+## Day 3 - Web Explotation  Part 2 - SQL Injection 
+###
