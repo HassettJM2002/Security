@@ -89,3 +89,6 @@ sudo apt install nikto -y
 
 ## Nesting Statements
     # ignore the rest or -- tells to ignore stuff, comment out some of the sql error
+
+## Day 4 - Reverse Engineering
+    
