@@ -91,4 +91,9 @@ sudo apt install nikto -y
     # ignore the rest or -- tells to ignore stuff, comment out some of the sql error
 
 ## Day 4 - Reverse Engineering
+     
+### X86_64 Assembly - Common Terms
+    Heap, Stack, Gen. Register, Ctrl. Register, Flags Register
+    
+### Reverse Engineering Workflow (Software)
     
