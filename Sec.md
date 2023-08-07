@@ -8,6 +8,7 @@ xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
 
 Jump Box:   ssh student@10.50.20.235 -X 
             CHT8QBJ8TQBlv7S
+            JOHA-005-M
 
 LinOps:     10.50.40.22   
 
