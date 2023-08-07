@@ -3,18 +3,18 @@
 https://sec.cybbh.io/public/security/latest/index.html
 #### Test Day: August 15th
 
-xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
+            xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
 
 
-Jump Box:   ssh student@10.50.20.235 -X 
-            CHT8QBJ8TQBlv7S
-            JOHA-005-M
+            Jump Box:   ssh student@10.50.20.235 -X 
+                        CHT8QBJ8TQBlv7S
+                        JOHA-005-M
 
-LinOps:     10.50.40.22   
+            LinOps:     10.50.40.22   
 
-WinBox:     10.50.37.222
-             
-ctf : server -> http://10.50.20.250:8000/
+            WinBox:     10.50.37.222
+                         
+            ctf : server -> http://10.50.20.250:8000/
 
 ## Day 1 - Recon/Research/Pen Testing
 ### Pen Testing
