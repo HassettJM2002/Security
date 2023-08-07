@@ -7,6 +7,7 @@ xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
 
 ssh <> -X
 
+ctf : server -> 
 
 ## Day 1 - Recon/Research/Pen Testing
 ### Pen Testing
