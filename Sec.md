@@ -151,8 +151,8 @@ print(buf)
                         ssh student@10.50.32.38 ls -lisa
                         Priv Key Logon
                                     find private key, can use it to authenticate without password
-                                                chmod +x /<stolenkey>
-                                                ssh -i <stolen key> <user>@<ip>
+                                                chmod +x /<stolenkey of user>
+                                                ssh -i <stolen key of user> <user>@<ip>
                         
 #### Control Sockets
 
