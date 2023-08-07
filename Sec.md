@@ -5,7 +5,10 @@ https://sec.cybbh.io/public/security/latest/index.html
 
 xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
 
-ssh <> -X
+ssh <> -X 
+
+CHT8QBJ8TQBlv7S
+10.50.20.235
 
 ctf : server -> 
 
