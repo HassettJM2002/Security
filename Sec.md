@@ -5,6 +5,9 @@ https://sec.cybbh.io/public/security/latest/index.html
 
 xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
 
+ssh <> -X
+
+
 ## Day 1 - Recon/Research/Pen Testing
 ### Pen Testing
 
