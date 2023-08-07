@@ -10,9 +10,9 @@ https://sec.cybbh.io/public/security/latest/index.html
                         CHT8QBJ8TQBlv7S
                         JOHA-005-M
 
-            LinOps:     10.50.40.22   
+            LinOps:     ssh student@10.50.40.22 -X  
 
-            WinBox:     10.50.37.222
+            WinBox:     ssh student@10.50.37.222
                          
             ctf : server -> http://10.50.20.250:8000/
 
