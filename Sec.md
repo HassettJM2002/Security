@@ -1,6 +1,6 @@
 ## Misc 
 
-https://sec.cybbh.io/public/security/latest/index.html
+            https://sec.cybbh.io/public/security/latest/index.html
 #### Test Day: August 15th
 
             xfreerdp /u:student /v:10.50.37.222 /dynamic-resolution +glyph-cache +clipboard
@@ -146,7 +146,14 @@ print(buf)
 ```
 ### Post Exploitation
             MISC:
-                        SSH 
+                        SSH
+                        ssh <user>@<ip> <cmd>
+                        ssh student@10.50.32.38 ls -lisa
+                        Priv Key Logon
+                                    find private key, can use it to authenticate without password
+                                                chmod +x /<stolenkey>
+                                                ssh -i <stolen key> <user>@<ip>
+                        
 #### Control Sockets
 
 #### Enumeration
