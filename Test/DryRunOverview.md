@@ -21,7 +21,7 @@
 	2) Priv Esc via SUDO / SUID / SGID
 		i)	X = 4000 (SUID) : 2000 (SGID) : 6000 (Either / Both )
 ```
-			find / -type f -perm /X -ls 2>/dev/null
+find / -type f -perm /X -ls 2>/dev/null
 ```	
 		ii) 	sudo -l
 	
