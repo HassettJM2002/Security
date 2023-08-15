@@ -43,7 +43,7 @@ find / -type f -perm /X -ls 2>/dev/null
 		
 		Check tables
 ```
-			<category>=<#> UNION sellect 1,2,3,...X ;
+<category>=<#> UNION sellect 1,2,3,...X ;
 ```	
 		Golden Statment
 			UNION select <>,<>,<> from information_schema.columns ; #make it reflect as database,table,columns
