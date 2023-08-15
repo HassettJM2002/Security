@@ -2,12 +2,12 @@
 
 ### Network Enumeration
 ```
-	nmap -v -sT -Pn -T4 -sV <ipaddr>,<ipaddr_2>
+nmap -v -sT -Pn -T4 -sV <ipaddr>,<ipaddr_2>
 ```
 
 ```
-	whereis ping = <path>/ping
-	for i in {1..254}; do (/<path>/ping -c 1 192.168.1.$i | grep "bytes from" &); done
+whereis ping = <path>/ping
+for i in {1..254}; do (/<path>/ping -c 1 192.168.1.$i | grep "bytes from" &); done
 ```	
 ### Host Enumeration
 	0) File Enum
