@@ -46,7 +46,7 @@ find / -type f -perm /X -ls 2>/dev/null
 			<category>=<#> UNION sellect 1,2,3,...X ;
 ```	
 		Golden Statment
-			UNION select <>,<>,<> from information_schema.columns ; #make it reflect as database,table,col.
+			UNION select <>,<>,<> from information_schema.columns ; #make it reflect as database,table,columns
 			UNION select <column>,<column2>,..,<columnX> from <database>.<table>
 		
 		Find Version
