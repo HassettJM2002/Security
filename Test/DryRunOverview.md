@@ -6,8 +6,8 @@ nmap -v -sT -Pn -T4 -sV <ipaddr>,<ipaddr_2>
 ```
 
 ```
-whereis ping = <path>/ping
-for i in {1..254}; do (/<path>/ping -c 1 192.168.1.$i | grep "bytes from" &); done
+epicping=$(whereis ping | awk -F' ' '{print $2}')
+for i in {1..2}; do ($epicping -c 1 127.0.0.$i | grep "bytes from" &); done
 ```	
 ### Host Enumeration
 	0) File Enum
